@@ -84,4 +84,28 @@ In Figure 5, you can see that problem depicted in a simple diagram: An actor ind
 
 **Figure 5.** Messages flow that causes an unwanted behaviour
 
+## 1.7 Product goals
+
+We would like to have a tool that:
+
+* enables the user to collect and see the messages passed between actors in a user’s actor system, 
+* provides a way easily enable/disable tracing, 
+* requires minimum workload for programmers to use it, 
+* does not require drastic changes in the actor system that user wants to trace, 
+* should not have large impact on the performance of the traced system, 
+* provides a way to visualize collected traces either through some external tool or built during the development process. 
+
+## 1.8 Discussion of problems and their solutions
+
+In the scope of the work we encountered several problems that we needed to solve: 
+
+* **integration with existing collectors and visualization tools** - we knew about very good, production tested systems for distributed tracing, but it could turned out that integration would be very hard or even impossible due to differences between data formats or gathered informations. We also didn’t want to run against these systems - ­we wanted to create something a little bit different than existing implementation. We appreciated that we had to create our own version of collector.
+* **client requirements** - they could be too strong, which means that gathered tracing data may be not helpful at all. We had to figure it out and check frequently whether this product introduces real value into developing.
+* **more research topic than some practical project**, so it demanded from us more prototyping than coding in the initial phase. We had to very carefully create schedule and stick to it, because it was so easy to not meet client requirements.
+* **simplicity of usage** - it is very important for developers: they don’t want to spend a lot of time configuring and doing manual hand­work to getting things done. We’ve struggled to gain best results in this field. Compared to Akka­tracing we try to collect message flows in generic way without specific hints and instrumentation in codebase, so-called *zero application specific hints instrumentation*. Although we know that in specific case it’s very useful to manually define additional data to log but we haven’t considered it much - it can be done in future works.
+
+# 2 Feasibility study
+
+The feasibility study was the first phase of our Project. The process of creating a tool that is the subject of the Project was associated very strongly with potential problems, which could cause delays and even lead to situations where it was impossible to end the work with existing requirements. We knew that this phase of our Project is very important and we’ve tried to predict most of the problems and minimize the possibility of failure and prepare best foundation for future work. 
+
 
