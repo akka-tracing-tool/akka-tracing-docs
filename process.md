@@ -425,19 +425,45 @@ the tasks of every role. We actually divided the work based on the tasks that
 we had to do, not based on the different roles as it was quite impossible due 
 to the small number of team members. 
  
-In Table 1 we can see the detailed tasks division between the two developers 
-during the whole development process.
+In Table 1 we can see the detailed tasks division between the two developers during the whole development process.
 
-| Michał Ciołczyk's tasks | Mariusz Wojakowski's tasks |
-| ----------------------- | -------------------------- |
-| * Research about “pure  | * Research about           |
-| Akka” and bytecode      | aspect-­oriented            |
-| manipulation methods of | programming.               |
-| instrumenting library.  | * Implementation of the    |
-| * Database connectivity | aspects.                   |
-| tasks using user        | * Implementation of the    |
-| provided connection     | preliminary aspects        |
-| definition.             | generation.                |
+<table>
+  <tbody>
+    <tr>
+      <th class="col-md-6"><strong>Michał Ciołczyk’s tasks</strong></th>
+      <th class="col-md-6"><strong>Mariusz Wojakowski’s tasks</strong></th>
+    </tr>
+    <tr>
+      <td>
+        <ul>
+          <li>Research about “pure Akka” and bytecode manipulation methods of 
+          	  instrumenting library.</li>
+          <li>Database connectivity tasks using user provided connection 
+          	  definition.</li>
+          <li>Implementation of the Visualization tool.</li>
+          <li>Implementation of the SBT plugin with new aspect generation 
+          	  method.</li>
+          <li>Development Process Documentation (Sections 3-7).</li>
+          <li>Technical Documentation (Sections 1.3, 2, 4).</li>
+          <li>Various bug fixes.</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>Research about aspect-­oriented programming.</li>
+          <li>Implementation of the aspects.</li>
+          <li>Implementation of the preliminary aspects generation.</li>
+          <li>Implementation of the message contents’ persistence.</li>
+          <li>Examples and tutorial.</li>
+          <li>Tests.</li>
+          <li>Development Process Documentation (Sections 1-2).</li>
+          <li>Technical Documentation (Sections 1.1, 1.2, 3).</li>
+          <li>User Documentation.</li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 **Table 1.** Tasks division between developers
 
