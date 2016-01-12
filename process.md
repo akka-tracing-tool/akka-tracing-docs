@@ -158,4 +158,82 @@ The subject of this Project is more connected with research than implementing pr
 
 It demanded from us more prototyping than coding in the initial phase. The only proper way to avoid problems was to very carefully create a schedule and stick to it. Not meeting client’s requirements was so easy in our case and we didn’t want to fail because of that. Frequent meetings also would help us receiving regular feedback from client and react to it by changing plan or leaving irrelevant part of work for subsequent iteration. 
 
+# 3 Adopted methodology of work
+
+The first part of the development was actually not writing the code - it consisted of comprehensive research about different ways of instrumentation that our library could use. Due to the research part, it couldn’t be done as an iterative or incremental process. There were some possible solutions that were just doomed to fail. Therefore, we decided to adopt the throw­away prototyping in this part of the Project. It did splendidly - we could determine the pros and cons of each option and decide which way of instrumentation showed promise to make it work. This enabled us to efficiently research the best approach to solve our problem. The first part - research and prototyping last for about 2 months and resulted in a few of prototypes and proofs of concepts that allowed us to decide which approach would be used in our Project. 
+ 
+The rest of our work (about 7 months) was actually done in an incremental process in agile spirit. First we tried to divide our work in equal or nearly equal parts. Unfortunately, what really happened was fact that even though tasks were divided in a good way, different tasks required different amount of work (even though we tried to estimate it). Due to this fact, the iterations were very irregular. Therefore we think that our work should not be seen from iterations perspective but from milestones perspective. We established some main goals to do in each development step and every development step corresponded to different milestone. Therefore we think of the incremental process not as divided by iterations but by milestones and we’ll describe it in this way. 
+ 
+A milestone is a specific moment of time that, when reached, new major functionality is delivered to the project or major project’s development step is completed. The time between two milestones can vary - this is the opposite approach to the iterative development where iterations must last the exact or nearly the same amount of time (e.g. every iteration lasts 2 weeks). The milestone is focused on delivering strictly specified functionality whereas iteration, while having its goals, mainly focuses on the tasks, but often not on the client’s requirements. 
+ 
+We’ve chosen the milestone approach due to the fact that it was extremely hard to predict the amount of time to complete the tasks (due to the research topic and their complexity) and because of the simpler development process management due to not having to split the tasks into somehow artificial iterations. It also allowed us to focus on delivering the functionality and meeting the requirements that was crucial to our client. 
+
+## 3.1 Project management tools
+
+We used a few tools to help us in managing our Project. The main tool for storing all information regarding the decisions, meetings and other important aspects of our library is Atlassian’s Confluence - a wiki for IT projects. It was used in every step of the Project’s development. It was the place where we documented the progress in our work as well as client’s requirements and our architecture decisions. The tool’s functionality helped a lot with planning and documenting the development progress. 
+ 
+The other tool, which helped us with time management as well as the division of tasks, was another Atlassian’s product - JIRA. This tool enabled us to plan the future development steps and divide the tasks between us. It was the place where we went daily to check what we have to do next, what is actually done in the current milestone and what else is to do. The functionality to assign team member to certain task helped a lot in the tasks’ division and enabled us to just look and see what each member is responsible for. 
+ 
+Other tools that were useful (especially for presentations and documentation) were Google Drive and Google Docs. These two products are closely related - Google Drive is actually a disk space where you can create Google Docs - collaborative documents, spreadsheets and presentations. We used these tools to create various presentations and documents (one of which you are reading right now). Its functionality to work together allowed the team to prepare needed documents much faster than it would be possible with e­mail­driven communication with attached files. 
+ 
+The other tool that we used was GitHub. It is a service that allows you to store and version the code. We used it to collaborate during the coding phase - every part of code that we created was stored on some repository on GitHub. Every piece of code was also reviewed by other team member during the “Code review” with the usage of GitHub’s pull requests. During this process the other team member (not the author of the code) read the code to try and spot mistakes and maintain the quality of code.
+ 
+The last tool that we used is a service called Travis. It is a Continuous Integration platform. It’s closely related to GitHub and extremely easy to set up - that’s why we decided to introduce it. After each commit the code was sent to some machine to compile and run unit tests. The results of this process was clearly visible to the team members. If something failed, it was a sign that the commit’s author has made some mistakes and he should correct them ­ it is great to use because it’s fully automatic - there is no need to manually run tests or compile the project. We introduced this tool after we had some core functionality written so it wasn’t used from beginning. It was due to the fact that at the beginning we had no functional library and it was pointless to use due to the inability to actually compile and test anything.
+
+## 3.2 Meetings with client and manager
+
+During the development and research we met with client on regular basis. During the first part when we learned new technologies and researched different approaches to solve our problems, we met with client every two weeks. Every meeting was very helpful as we could establish the current priorities in our work. Later we met with client every week to present the finished tasks and the current status of work. 
+ 
+Meetings with manager were more irregular. The frequency was adopted to the current needs. These meetings were rather oriented on the software development process itself. Each was useful as we could tweak our methodology and task management to help us deliver the effects quicker. 
+ 
+Each meeting were documented on Confluence. In this way, we could remember the conclusions and important decisions that were established during the meetings. It also helped us to have the development process itself more organized. Because of the frequency of the meetings (especially with client) we could be flexible to the current needs. 
+
+## 3.3 Roles and tasks division
+
+The Project was developed by two team members. The tasks were divided in a fair, equal way that each person from the team accepted. We could distinguish following roles in our Project with their responsibilities: 
+ 
+* Business analyst - meetings with client, establishing the requirements. 
+* Architecture designer - designing the library’s architecture. 
+* Programmer - implementing the library’s source code as well as the unit tests. 
+* Tester - testing the library on existing use cases. 
+ 
+As the roles are quite flexible (being a tester didn’t mean that you can’t be a programmer), each person actually was responsible (at least at some part) in the tasks of every role. We actually divided the work based on the tasks that we had to do, not based on the different roles as it was quite impossible due to the small number of team members. 
+ 
+In Table 1 we can see the detailed tasks division between the two developers during the whole development process.
+
+<table>
+  <tr>
+    <th><strong>Michał Ciołczyk’s tasks</strong></th>
+    <th><strong>Mariusz Wojakowski’s tasks</strong></th>
+  </tr>
+  <tr>
+    <td>
+      <ul>
+        <li>Research about “pure Akka” and bytecode manipulation methods of instrumenting library.</li>
+        <li>Database connectivity tasks using user provided connection definition.</li>
+        <li>Implementation of the Visualization tool.</li>
+        <li>Implementation of the SBT plugin with new aspect generation method.</li>
+        <li>Development Process Documentation (Sections 3-7).</li>
+        <li>Technical Documentation (Sections 1.3, 2, 4).</li>
+        <li>Various bug fixes.</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Research about aspect-­oriented programming.</li>
+        <li>Implementation of the aspects.</li>
+        <li>Implementation of the preliminary aspects generation.</li>
+        <li>Implementation of the message contents’ persistence.</li>
+        <li>Examples and tutorial.</li>
+        <li>Tests.</li>
+        <li>Development Process Documentation (Sections 1-2).</li>
+        <li>Technical Documentation (Sections 1.1, 1.2, 3).</li>
+        <li>User Documentation.</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+**Table 1.** Tasks division between developers
+
 
