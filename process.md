@@ -28,9 +28,9 @@ The actor model has been used both as a framework for a theoretical understandin
 
 ## 1.3 Message-passing semantics
 
-The actor model is is very strictly connected with message­passing semantics. Message-passing programming paradigm assumes many instances of process work in sequential mode and they can communicate by sending messages to each other. In pure message-­passing these computing units don’t share any data between them. However, programs written using this semantics can be run on architecture that supports a different computational model. For more information about message­-passing semantics, please see S.S. Kadam’s presentation [3].
+The actor model is is very strictly connected with message­passing semantics. Message-passing programming paradigm assumes many instances of process work in sequential mode and they can communicate by sending messages to each other. In pure message-passing these computing units don’t share any data between them. However, programs written using this semantics can be run on architecture that supports a different computational model. For more information about message-passing semantics, please see S.S. Kadam’s presentation [3].
 
-One of the most important distinctions among message passing systems is whether they use synchronous or asynchronous message passing: synchronous message passing is what typical object­oriented programming languages such as Java and Smalltalk use. Asynchronous message passing requires additional capabilities for storing and retransmitting data for systems that may not run concurrently.
+One of the most important distinctions among message passing systems is whether they use synchronous or asynchronous message passing: synchronous message passing is what typical object-oriented programming languages such as Java and Smalltalk use. Asynchronous message passing requires additional capabilities for storing and retransmitting data for systems that may not run concurrently.
 
 In Figure 2 you can see messages passing between actors A and B, every of them is working in sequential mode and don’t share anything with external actors:
 
@@ -107,5 +107,53 @@ In the scope of the work we encountered several problems that we needed to solve
 # 2 Feasibility study
 
 The feasibility study was the first phase of our Project. The process of creating a tool that is the subject of the Project was associated very strongly with potential problems, which could cause delays and even lead to situations where it was impossible to end the work with existing requirements. We knew that this phase of our Project is very important and we’ve tried to predict most of the problems and minimize the possibility of failure and prepare best foundation for future work. 
+
+In this phase we gained confidence on technologies we wanted to use and made sure that our task and plan was somehow feasible. We prepared some prototypes and after that we chose AspectJ for instrumentation from other propositions: bytecode manipulation and ‘pure Akka’ library. We also investigated that other tracing framework also use this type of instrumentation so we were sure that this was doable. Also in this phase we developed a prototype version of the architecture and format of configuration file. 
+
+We were thinking about testing strategy too. Testing such library which operation depends heavily on the system using it is hard. Also we knew that testing it on big, complex systems was not going to work. We decided that we would focus on the acceptance tests of some small systems, some deterministic scenarios. 
+
+## 2.1 Risk analysis
+
+Below is a list of points, that we knew at the beginning could cause problems. With every potential problem we tried to take steps that allow us to minimize failure of failing deadline. As a result every identified risk is associated with a short description of what we planned at the beginning to prevent it from happening. 
+
+### 2.1.1 Need to learn new technologies
+
+In this case the choice was imposed by product requirements. We were aware that we would spend a certain amount of time intended for work on learning Scala language and Akka toolkit. 
+
+#### Possible solution
+
+Learning new technology, new language always takes some time and we planned to spend some at the beginning on that. Each of us had contact with these technologies so we thought it wouldn’t be a big problem - in the initial phase we could work on designing and prototyping part concurrently with learning and gaining knowledge in these areas. 
+ 
+Also our client was very familiar with mentioned technologies so we could always ask him about any advice and presenting some problems with hope that he at least pointed a proper way to solve them.
+ 
+Each of us also had very big motivation to learn these technologies. We didn’t see that as an obstacle - it was a big opportunity combined with great incentive in the form of the final evaluation of engineering work. 
+
+### 2.1.2 Integration with existing collectors
+
+At the beginning we planned integration with existing collector, e.g. Zipkin [8]. It was difficult to predict how much time it would take because of unspecified product requirements and unclear goals yet. Earlier mentioned Zipkin provides production­ready system for tracing, querying and visualizing flows so we wanted to use it very willingly. We also knew that this integration might be very hard or even impossible at some point. 
+
+#### Possible solution
+
+It is very hard to predict something when you even don’t know what exactly your tool will be doing. Only sensible thing we could do was to create a plan that took into account potential integration with existing collector. We safely assigned 1 iteration time for that. That time covered: deep recognition of chosen collector, introducing inevitable changes into code and troubleshooting. 
+ 
+Integration with existing collector wasn’t our high priority - we thought only that we could easily benefit from production­tested tool that proved its usefulness and provided nice out of the box system for visualization. 
+
+### 2.1.3 Too ambitious client’s requirements
+
+Simplicity of usage was an important goal in our Project and we tried to meet client’s requirements fully. But we also looked from the perspective of developers and we were thinking about potential limitations. Client requirements could be too strong and too generic, which means that gathered data may be not helpful at all. We had to figure it out at the phase of designing as well as initial coding. 
+
+#### Possible solution
+
+This risk was intrinsically connected with research - we only knew that we had to figure out between simplicity of usage and usefulness of our tool. To avoid working fruitlessly we planned to meet often with our client and discuss every part of that Project with him. We knew that experienced person could give us good clues and provided invaluable help. 
+ 
+We also planned to ship first version of product very quickly - it would be very big help to gain feedback from first versions and focus on more important parts from the point of client view. 
+
+### 2.1.4 Research oriented nature of the Project
+
+The subject of this Project is more connected with research than implementing product based on well-defined requirements collected from client. We were aware that it could impact risk of not meeting deadlines. Creating prototypes forced us to spend some time on learning new technologies or acquire knowledge in different way. We knew that wrong estimates and not sticking to the plan could cause very serious problems during work. 
+
+#### Possible solution
+
+It demanded from us more prototyping than coding in the initial phase. The only proper way to avoid problems was to very carefully create a schedule and stick to it. Not meeting client’s requirements was so easy in our case and we didn’t want to fail because of that. Frequent meetings also would help us receiving regular feedback from client and react to it by changing plan or leaving irrelevant part of work for subsequent iteration. 
 
 
