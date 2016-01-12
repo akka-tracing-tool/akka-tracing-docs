@@ -470,3 +470,12 @@ In this scenario we’ve tried to simulate situation when one actor send somethi
 **Figure 6.** One-to-many scenario messages flow
 
 This situation is similar to master-worker pattern with redundancy, which is common in large scale computation.
+
+# References
+
+1. SQLite project website. Available at: https://www.sqlite.org
+[Online; accessed 01.01.2016]
+2. Slick documentation, “Extensions” section. Available at: http://slick.typesafe.com/doc/3.1.1/extensions.html [Online; accessed 03.01.2016]
+3. Akka documentation, “Remoting” section. Available at:
+http://doc.akka.io/docs/akka/snapshot/scala/remoting.html
+[Online; accessed 31.12.2015]
