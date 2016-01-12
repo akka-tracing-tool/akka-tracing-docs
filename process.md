@@ -1,5 +1,7 @@
-Background/Technical documentation
-==================================
+Background/Development process documentation
+============================================
+
+To download PDF version of this document, please [click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/DevelopmentProcessDocumentation.pdf).
 
 # 1 Project goals and vision
 
