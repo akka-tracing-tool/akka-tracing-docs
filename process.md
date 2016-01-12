@@ -517,7 +517,7 @@ the following milestones:
 1. **Research and prototyping** (completed in 2 months) - this milestone was 
 about researching different approaches to the instrumentation of the library 
 in the user’s code.
-2. **Preliminary implementation of tracing using aspect-oriented programming 
+2. **Preliminary implementation of tracing using aspect-oriented programming** 
 (completed in 1 month) - this milestone focused on implementing (working only 
 on specific project) first version of the library.
 3. **Working project prototype** (completed in 1 month) - this milestone was 
@@ -570,3 +570,69 @@ considered were:
 
 We considered each approach and created some very basic prototypes of how it 
 could be implemented using different technology.
+
+#### “Pure Akka” implementation
+
+This method was checked first. It was caused by obvious reasons:
+
+* no external dependencies,
+* prospective minimize amount of code necessary to instrumentation.
+
+At the initial phase of work we couldn’t determine whether it was achievable in
+intended by us way so we decided to spend some time of the research phase on 
+initial version of implementation. Moreover Akka toolkit was known by us only 
+from the developer point of view and API, so we had to spend a certain amount 
+of time on deep investigating and getting oriented in internal implementation 
+of Akka.
+
+To use this method we needed to deliver own version of actors’ provider and 
+add new behaviour to existing implementation, which is sending information 
+about relation between messages. At that moment we didn’t know how to do it in 
+proper way. Also providing another implementation seemed for us as not best 
+idea. We decided that we wouldn’t follow that way.
+
+#### Bytecode manipulation
+
+This idea appeared for obvious reasons: Scala is a language that is compiled 
+to Java bytecode that enables it to run on JVM. We tried to use *javassist* 
+library to modify the bytecode after compilation stage. However complexity of 
+this method sowed doubts whether we could do this while meeting the deadlines. 
+We can imagine existence of such solution, but for us it was too complicated 
+and we couldn’t undertake this method the risk of failure was too large.
+
+Also we didn’t know how to instrument code without interference into Akka 
+toolkit we preferred not to change its compiled version of classes.
+
+Bytecode manipulation is undoubtedly the most difficult solution, 
+characterized by high complexity and demanding thorough knowledge of JVM, 
+although the resulting product could be very efficient with low overhead of 
+executed instructions.
+
+#### Aspect-oriented programming (AOP)
+
+This idea appeared for several reasons. One is that it required the least 
+workload of all described methods. Aspects are very quick to write and very 
+powerful. It is also easy to instrument them into the code. The other reason 
+is that there were some successful tries at tracing actors using this 
+instrumentation method (for example Kamon uses aspects to instrument the 
+library’s code). These reasons were undoubtedly the deciding factors in the 
+choosing of the instrumentation method in our library. We decided that 
+aspect-oriented programming seemed to be the most promising and the easiest of 
+the methods that we were considering to use.
+
+#### Milestone summary
+
+In this milestone the decisions about the Project’s technical and 
+organizational aspects were made. We established management tools to work with 
+as well as language and frameworks that we’ll be using while implementing the 
+library.
+
+We also made important decisions regarding the most difficult aspect of our 
+library - code instrumentation. We decided to use aspects to instrument our 
+code as they seemed to be the most promising of the three methods that were 
+taken into consideration.
+
+### 5.1.2 Preliminary implementation of tracing using aspect-oriented
+programming
+
+
