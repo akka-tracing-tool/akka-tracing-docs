@@ -54,7 +54,7 @@ In Figure 3 you can see how actors’ code are dispatched and prepared for execu
 
 **Figure 3.** Diagram of dispatching and executing actors’ code on threads (source: [5])
 
-Debugging in one actor is relatively easy (because it’s sequential), but what happens when we want to move to another actors that will be receiving that message? Well­known in standard debugger button “Next line/Step into” is not really useful in such systems. One proposal for a convenient tool was suggested by Iulian Dragos: an async debugger [6]. He pointed out that debugging that kind of applications is like being a detective: you need to go from effects back to causes, attempt a fix, and check whether everything works fine. Threads and locks are replaced by higher­level abstractions like futures, actors and parallel collections which use a thread­pool for executing their computations. He also suggested that instead of ‘Step into’ we should add ability to ‘step-­with-­message’ ­ this can happen in a different thread or even these two actors can exchanged different messages in the meantime! It’s not important for us: we want to move to the next logical step which is  
+Debugging in one actor is relatively easy (because it’s sequential), but what happens when we want to move to another actors that will be receiving that message? Well-known in standard debugger button “Next line/Step into” is not really useful in such systems. One proposal for a convenient tool was suggested by Iulian Dragos: an async debugger [6]. He pointed out that debugging that kind of applications is like being a detective: you need to go from effects back to causes, attempt a fix, and check whether everything works fine. Threads and locks are replaced by higher­level abstractions like futures, actors and parallel collections which use a thread­pool for executing their computations. He also suggested that instead of ‘Step into’ we should add ability to ‘step-­with-­message’ ­ this can happen in a different thread or even these two actors can exchanged different messages in the meantime! It’s not important for us: we want to move to the next logical step which is  
 receiving the message.
 
 As you can see below, in Figure 4, there is an implementation of that behaviour. Currently, it is available as a feature in Scala IDE.
@@ -62,5 +62,26 @@ As you can see below, in Figure 4, there is an implementation of that behaviour.
 ![A screenshot from Scala IDE - in debug frame you can see green ‘bang’ icon that allows using *step-with-message* ability (source: [7])](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/proc/fig4.png "A screenshot from Scala IDE - in debug frame you can see green ‘bang’ icon that allows using *step-with-message* ability (source: [7])")
 
 **Figure 4.** A screenshot from Scala IDE - in debug frame you can see green ‘bang’ icon that allows using *step-with-message* ability (source: [7])
+
+## 1.5 The need for tracing
+
+Very often during debugging it is helpful to have information about the whole message path. Tracing allows developers to inspect what causes unwanted behaviour. Sometimes with tracing developers can gather statistics and test performance of application. Full tracing is very expensive process so it’s reasonable only for development time. However, tracing is possible in production environment combined with sampling.
+
+Information gathered through tracing developers can use in many ways: 
+
+* espy unwanted message and check its sender, 
+* check message correctness, 
+* filter by actors, message types or contents, 
+* gather different aggregate statistics. 
+
+Main idea for the product that is the subject of this Project was a tool that enables developers to ease debugging of application with the usage of traces and message flow. Below you can see an example of situation where such tool could give us sensible information about what happened. 
+
+## 1.6 Illustrative example
+
+In Figure 5, you can see that problem depicted in a simple diagram: An actor indicates the existence of the problem by e.g. throwing an exception. The cause of this error was in Actor 4 processing a faulty message originated by Actor 2 which is 2 interactions before. The stack trace of Actor 4 shows only information about current actor’s context. However, we would like to know what really caused this problem. 
+
+![Messages flow that causes an unwanted behaviour](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/proc/fig5.png "Messages flow that causes an unwanted behaviour")
+
+**Figure 5.** Messages flow that causes an unwanted behaviour
 
 
