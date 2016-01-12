@@ -467,4 +467,43 @@ In Table 1 we can see the detailed tasks division between the two developers dur
 
 **Table 1.** Tasks division between developers
 
+# 4 Verification of Project’s results
+
+Developing a library which operation is very dependent on the application 
+that it will be connected to is very hard not only because we don’t control 
+what user will actually do, but also due to the fact that it’s very difficult 
+to verify if the library is actually doing the things that it actually should 
+be doing.
+
+Due to this fact, we created a few examples of simple actor systems that could 
+verify that our library is actually working. We also created a very simple 
+visualization tool that enabled us to visually see if the traces that we were 
+collecting were correct. There was simply no other way to test whether the 
+library is working properly.
+
+Of course, we also used unit tests that enabled us to check if the different 
+parts of our library were working in expected way. In this way we confirmed 
+that different parts of the project were actually working. For example, we 
+verified if the configuration parser read the configuration file properly; if 
+the database initialization mechanism created correct tables in database and 
+many more other things.
+
+A few of the tests actually could not be automated and therefore we had to 
+verify the results ourselves. These tests were mainly connected to the 
+nonfunctional requirements for example the machines cannot check if something 
+is easy to use. Therefore, we relied on the client’s opinion as well as our 
+own thoughts about the matter. The integration tests couldn’t be easily 
+automated as well as they would require an environment that could interact 
+between actor system and a tested library. Therefore, in more sophisticated 
+examples, we needed to check ourselves if the produced traces are correct.
+
+Both the automated and manual tests confirm that the requirements have been 
+met by our library. The library and created tools are working in the expected 
+way and do allow users the functionality that was assumed that they would be 
+providing.
+
+The automated tests are thoroughly described in the Technical Documentation of 
+our library in Section 3.
+
+# 5 Work progress - milestones
 
