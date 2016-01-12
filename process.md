@@ -430,8 +430,8 @@ In Table 1 we can see the detailed tasks division between the two developers dur
 <table>
   <tbody>
     <tr>
-      <th class="col-md-6"><strong>Michał Ciołczyk’s tasks</strong></th>
-      <th class="col-md-6"><strong>Mariusz Wojakowski’s tasks</strong></th>
+      <th width="50%"><strong>Michał Ciołczyk’s tasks</strong></th>
+      <th width="50%"><strong>Mariusz Wojakowski’s tasks</strong></th>
     </tr>
     <tr>
       <td>
