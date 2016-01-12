@@ -319,3 +319,130 @@ Under the URL `localhost:9000` you can see visualization of collected traces, si
 
 ![Figure 4](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig4.png "Figure 4")
 **Figure 4.** Screenshot from web browser showing *Akka Tracing Visualization Tool*
+
+# 4 Configuration
+
+Configuration needed by Akka Tracing Tool is divided into 2 files:
+
+* akka_tracing.conf
+* application.conf
+
+Below we describe each of the configuration files.
+
+## 4.1 akka_tracing.conf file
+
+The `akka_tracing.conf` file contains information about 3 things:
+
+* settings for database
+* packages with actors being instrumented
+* Akka Remote configuration of collector
+
+In order to make configuration readable and looking similar to Typesafe’s format, we’ve adopted HOCON format. HOCON stands for Human-Optimized Config Object Notation and is widely used in Akka configuration. Whole configuration in akka_tracing.conf is available as a value under the key `akka_tracing`. This object consists of 2 parts: remote and packages keys.
+
+```scala
+akka_tracing {
+  remote { … }
+  packages = [ … ]
+}
+```
+
+### 4.1.1 remote key
+
+Settings under the `remote` key contains information for database connection - under the `database` key and Akka Remote configuration - under `akka` key.
+
+#### database key
+
+The database key consists of: `driver` and `db` keys. First key, `driver`, has string value which specifies Slick’s driver for chosen database. Value for it should be picked from classes available in Slick library in `slick.driver` package. Some of them are listed below:
+
+* `H2Driver$`
+* `MySQLDriver$`
+* `PostgresDriver$`
+* `SQLiteDriver$`
+
+Slick provides drivers for most widely used database systems. Most of them are included in the Slick’s core package.
+
+Three commercial database systems (Microsoft SQL Server, Oracle and IBM DB2) have their Slick drivers in the separate dependency called `slick-extensions`. This part of the Slick library is closed-sourced and it is not free for use in the production environment. If you want to use it, the following code:
+
+```scala
+libraryDependencies += "com.typesafe.slick" %% "slick-extensions" % "3.1.0"
+
+resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/maven-releases/"
+```
+
+should be added to both `build.sbt` and `plugins.sbt` files in your project. For more information about slick-extensions please see the official Slick documentation [2].
+
+Settings under db key depend on choice of database system. Basically, you need to provide values for JDBC driver to your database - under the `driver` key and url to database - under `url` key. Sometimes it’s necessary to introduce other settings, e.g. `user`, `password`, `maxConnections` etc.
+
+```scala
+akka_tracing {
+  remote {
+    database {
+      driver = "slick.driver.SQLiteDriver$"
+      db {
+        driver = "org.sqlite.JDBC"
+        url = "jdbc:sqlite:simple-scenario.sqlite"
+      }
+    }
+    ...
+  }
+  ...
+}
+```
+
+#### akka key
+
+Under akka key you provide Akka Remote configuration. All settings under this key are directly fed into collector’s actor system to enable remoting functionalities. Format of the value for this key is created by Akka Remote developers - we’ve adopted it to ease developers usage of our tool. For more information please see Akka documentation about Remoting [3].
+
+```scala
+akka_tracing {
+  remote {
+    ...
+    akka {
+      loglevel = "WARNING"
+      actor {
+        provider = "akka.remote.RemoteActorRefProvider"
+      }
+      remote {
+        enabled-transports = ["akka.remote.netty.tcp"]
+        netty.tcp {
+          hostname = "127.0.0.1"
+          port = 0
+        }
+      }
+    }
+  }
+  ...
+}
+```
+
+### 4.1.2 packages key
+
+Key `packages` contains array with package names as strings. It’s necessary to produce resource with information about weaving: in which packages instrument actors and collect data. AspectJ reads configuration from that file and based on that injects advice code into actors. You have to specify at least one package name.
+
+```scala
+akka_tracing {
+  ...
+  packages = [
+    "pl.edu.agh.iet.akka_tracing.examples.actors"
+  ]
+}
+```
+
+## 4.2 application.conf file
+
+This configuration file contains informations for application’s actor system. If you haven’t used in your project Akka Remote, you need to provide different `ActorProvider` and some other settings because of remoting capabilities. Structure is presented below and it’s the same as `akka_tracing.remote.akka` key as in the file `akka_tracing.conf` (see Section 4.1.1 - “akka key”).
+
+```scala
+akka {
+  actor {
+    provider = "akka.remote.RemoteActorRefProvider"
+  }
+  remote {
+    enabled-transports = ["akka.remote.netty.tcp"]
+    netty.tcp {
+      hostname = "127.0.0.1"
+      port = 0
+    }
+  }
+}
+```
