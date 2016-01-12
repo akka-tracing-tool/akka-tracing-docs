@@ -203,11 +203,11 @@ In Table 1 we can see the detailed tasks division between the two developers dur
 
 <table>
   <tr>
-    <th><strong>Michał Ciołczyk’s tasks</strong></th>
+    <th style="width: 50%;"><strong>Michał Ciołczyk’s tasks</strong></th>
     <th><strong>Mariusz Wojakowski’s tasks</strong></th>
   </tr>
   <tr>
-    <td>
+    <td style="width: 50%;">
       <ul>
         <li>Research about “pure Akka” and bytecode manipulation methods of instrumenting library.</li>
         <li>Database connectivity tasks using user provided connection definition.</li>
