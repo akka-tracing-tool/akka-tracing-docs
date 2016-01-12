@@ -265,3 +265,57 @@ Now it’s ready! You can run application and check results. In Figure 3. we’r
 
 ![Figure 3](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig3.png "Figure 3")
 **Figure 3.** Screenshot from *pgadmin3*
+
+## 3.3 Using visualization tool
+
+When you have all information in database, you can process the data and e.g. visualize them. On *Github* repository is available simple tool for visualizing traces collected using Akka Tracing Tool. In order to use it, please clone the repository:
+https://github.com/akka-tracing-tool/akka-tracing-visualization by running the command:
+
+```
+$ git clone https://github.com/akka-tracing-tool/akka-tracing-visualization
+```
+
+Downloaded project contains Play application which can visualize traces in web browser. You need only to provide configuration file. Example is available in the repository under the name `database.conf.example`:
+
+```scala
+//Postgres configuration
+driver = "slick.driver.PostgresDriver$"
+db {
+  connectionPool = disabled
+  driver = "org.postgresql.Driver"
+  url = "jdbc:postgresql://localhost:5432/<DB_NAME>"
+  user = ""
+  password = ""
+  numThreads = 10
+}
+
+//SQLite configuration
+driver = "slick.driver.SQLiteDriver$"
+db {
+  driver = "org.sqlite.JDBC"
+  url = "jdbc:sqlite:<<FILE>>"
+}
+```
+
+Here you can see example of configuration for 2 drivers. Below is shown minimal configuration for PostgreSQL:
+
+```scala
+driver = "slick.driver.PostgresDriver$"
+db {
+  driver = "org.postgresql.Driver"
+  url = "jdbc:postgresql://localhost:5432/akka-tracing-tutorial"
+  user = "postgres"
+  password = "postgres"
+}
+```
+
+When all configuration changes are done you can run Play application:
+
+```
+$ sbt run
+```
+
+Under the URL `localhost:9000` you can see visualization of collected traces, similar to shown in Figure 4.
+
+![Figure 4](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig4.png "Figure 4")
+**Figure 4.** Screenshot from web browser showing *Akka Tracing Visualization Tool*
