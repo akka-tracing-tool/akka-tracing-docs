@@ -507,3 +507,66 @@ our library in Section 3.
 
 # 5 Work progress - milestones
 
+As we said earlier, we don’t actually see the work progress from iterations or 
+time perspective as the iterations could be very irregular due to the fact 
+that the tasks’ complexity and difficulty were very varying. Therefore, we 
+decided to present our work progress from milestones perspective the main 
+goals that were completed with each development step. We have distinguished 
+the following milestones:
+
+1. **Research and prototyping** (completed in 2 months) - this milestone was 
+about researching different approaches to the instrumentation of the library 
+in the user’s code.
+2. **Preliminary implementation of tracing using aspect-oriented programming 
+(completed in 1 month) - this milestone focused on implementing (working only 
+on specific project) first version of the library.
+3. **Working project prototype** (completed in 1 month) - this milestone was 
+focused on implementation of a working version of the library with 
+manually inserted instrumentation code.
+4. **Visualization tool** (completed in 2 weeks) - this milestone was solely 
+dedicated to create a very simple tool to help us see if the traces we were 
+collecting were correct. It’s not a main or necessary part of the product but 
+rather some side product that was required due to the need of verification of 
+the results.
+5. **SBT plugin** (completed in 2 months) - this milestone focused on 
+implementation of the automatic generation of aspects which enables us to 
+greatly reduce the user’s actions to instrument the code.
+6. **Documentation and tutorial with working library and example** (completed 
+in 2 months) - this part was dedicated solely to the documentation and manuals 
+for the library’s user - we created a simple small example for user that 
+demonstrates how to connect our library to some existing project.
+
+## 5.1 Description of milestones
+
+### 5.1.1 Research and prototyping
+
+This milestone had two main goals:
+
+* Make a decision on technologies and other important technical aspects:
+  * Language and IDE,
+  * Code versioning tool,
+  * Management tools,
+  * Process methodology.
+* Research of different approaches of how to implement our library.
+
+The following decisions were made:
+
+* Language: Scala.
+* IDE: IntelliJ IDEA.
+* Building tool: SBT.
+* Code versioning tool: Git.
+* Management tools: JIRA, Confluence, GitHub.
+* Test framework: Scalatest.
+* Process methodology: throwaway prototyping (research phase), incremental 
+(coding phase).
+
+The research part was mainly dedicated on finding the way that we can 
+instrument the library’s code in user’s actor system. The main three that we 
+considered were:
+
+* “pure Akka” implementation,
+* bytecode manipulation,
+* aspect-oriented programming.
+
+We considered each approach and created some very basic prototypes of how it 
+could be implemented using different technology.
