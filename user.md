@@ -446,3 +446,27 @@ akka {
   }
 }
 ```
+
+# 5 Examples
+
+As earlier mentioned, in Akka Tracing Tool organization on GitHub, there is available one repository with examples. At the time of creating this documentation, that repository contains 2 examples. Below are briefly described scenarios used in that project.
+
+## 5.1 Simple scenario
+
+This example provides simple scenario where actors passing messages in chain: from the Actor 1, through Actor 2 to Actor 3. Messages flow is shown in Figure 5.
+
+![Figure 5](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig1.png "Figure 5")
+
+**Figure 5.** Simple scenario messages flow
+
+It’s very common scenario in real world application.
+
+## 5.2 One-to-many scenario
+
+In this scenario we’ve tried to simulate situation when one actor send something to more than one receiver. In that case, one actor passes the same message to bunch of different actors. You can see messages flow in Figure 6.
+
+![Figure 6](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig5.png "Figure 6")
+
+**Figure 6.** One-to-many scenario messages flow
+
+This situation is similar to master-worker pattern with redundancy, which is common in large scale computation.
