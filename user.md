@@ -215,3 +215,53 @@ In Figure 2. you can see a screenshot from that program. Database contains two t
 
 
 **Figure 2.** Screenshot from sqliteman
+
+## 3.2 Changing database driver
+
+Changing database driver is easy. You need to provide different dependencies into your configuration and make sure that plugin can access that database. We show this on example of PostgreSQL database.
+
+First, you need to change dependencies. It has to be done in 2 files: `build.sbt` and `project/plugins.sbt`. In build.sbt you need to change this line:
+
+```scala
+libraryDependencies ++= Seq(
+  ...
+ "org.xerial" % "sqlite-jdbc" % "3.8.11.1",
+  ...
+)
+```
+
+Into this:
+
+```scala
+libraryDependencies ++= Seq(
+  ...
+ "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
+  ...
+)
+```
+
+The same change has to be done in `project/plugins.sbt`.
+
+Last change you need to introduce is in `akka_tracing.conf`. It’s necessary to provide correct drivers and parameters for connection. Below is presented one possible configuration:
+
+```scala
+akka_tracing {
+ remote {
+  database {
+   driver = "slick.driver.PostgresDriver$"
+   db {
+    driver = "org.postgresql.Driver"
+    url = "jdbc:postgresql://localhost:5432/akka-tracing-tutorial"
+    user = "postgres"
+    password = "postgres"
+   }
+  }
+ }
+ ...
+}
+```
+
+Now it’s ready! You can run application and check results. In Figure 3. we’re showing output from *pgadmin3*.
+
+![Figure 3](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig3.png "Figure 3")
+**Figure 3.** Screenshot from *pgadmin3*
