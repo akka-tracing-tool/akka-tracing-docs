@@ -632,7 +632,103 @@ library - code instrumentation. We decided to use aspects to instrument our
 code as they seemed to be the most promising of the three methods that were 
 taken into consideration.
 
-### 5.1.2 Preliminary implementation of tracing using aspect-oriented
-programming
+### 5.1.2 Preliminary implementation of tracing using aspect-oriented programming
 
+This milestone focused mainly on creating the first meaningful and working 
+version of aspect template needed for tracing. We had to learn thorough 
+specific parts of aspect-oriented programming to use it in our library and it 
+took major amount of time of the iteration.
 
+The previous milestone showed us that it was possible to do using 
+aspect-oriented programming. However, we didn’t know how to properly handle 
+correlation of messages. In this preliminary implementation emerged the idea 
+of keeping information in trait mixed into actor’s object. It turned out that 
+this implementation is good enough and it stayed unchanged up to the last version.
+
+Product of this iteration allowed us to manually include this aspect into 
+project and see on output intercepted messages which could be easily connected 
+into traces.
+
+#### Milestone summary
+
+What was done:
+
+* Meaningful version of aspect template
+* Correlation of messages into traces using trait implementation
+
+What remained unanswered was:
+
+* How to make whole process easier for developers and how to include it into 
+build definition?
+* In what form should we persist information about traces?
+
+### 5.1.3 Working project prototype
+
+This milestone was focused on delivering working project prototype to our 
+client. In the previous milestone we have successfully created aspects that we 
+could use to trace the messages (without storing the information). There were 
+some issues on how to generate the aspects so they work in any project. 
+Requiring that user would write his own aspects was definitely not a way to 
+increase the usability and easiness of integration the library with user’s 
+projects. Therefore, we needed some way to actually automatically create 
+aspects that would collect information about messages as well as persisting 
+that information to the database.
+
+We also needed to make decision about the persistence library. Due to the 
+Slick’s popularity and simplicity we decided to use it to implement 
+persistence of traces into relational database. We chose PostgreSQL as the 
+database that will be used for the time being due to the familiarity with this 
+database engine. 
+
+This milestone resulted in a very preliminary way of aspect generation. We 
+included some code into the build definition file of the testing example. 
+Therefore, the aspect was actually generated during the build phase and user 
+didn’t have to provide the aspects on his own.
+
+We also worked a little more on the correlation of messages so they could be
+connected into traces. Previously there were some problems in some use cases. In this milestone we fixed these problems.
+
+#### Milestone summary
+
+What was done:
+
+* Aspects generation based on the code inserted into user’s project build 
+definition file. Unfortunately, it required a lot of code to be inserted there 
+which wasn’t user friendly.
+* Persistence of the traces in database.
+* Correlation of messages fixes for some fail cases.
+
+What remained unanswered was:
+
+* How to check if the library is really producing good traces?
+* How to reduce the amount of code inserted to the build definition file?
+
+### 5.1.4 Visualization tool
+
+This milestone was dedicated solely on implementing a very simple tool that 
+could allow us to actually view the traces collected by aspects and persisted 
+in the database. We didn’t expect this tool to actually be a part of our 
+Project but, unfortunately, attempts of integrating our library with existing 
+visualization engines failed and we needed something very quickly.
+
+Therefore we decided to build a very simple visualization tool that would 
+enable to see the traces as directed graph. The nodes of the graph were actors 
+and the edges were passed messages. The tool was written using Scala API of 
+the Play! framework, Slick and JS graph visualization library called Sigma JS. 
+We present screenshot from the visualization below.
+
+![Figure 6](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/proc/fig6.png "Figure 6")
+
+**Figure 6.** Screenshot from the visualization tool
+
+As we can see in Figure 6, the tool only enables us to see the traces there
+are no interactions with user. But it fulfilled its purpose we could visually 
+see if the collected traces were correct. Therefore we could verify if the 
+library was working well.
+
+#### Milestone summary
+
+This milestone resulted in a simple tool which allows users to see collected 
+traces as a directed graph.
+
+### 5.1.5 SBT plugin
