@@ -732,3 +732,169 @@ This milestone resulted in a simple tool which allows users to see collected
 traces as a directed graph.
 
 ### 5.1.5 SBT plugin
+
+This milestone was solely focused in reducing the amount of code that was 
+needed to be inserted to the build definition file. We needed some 
+configuration format that would allow user to specify which actors should be 
+traced. We also wanted to do it in a recognized file format in Scala community.
+Therefore, we decided to use Typesafe’s Config library and HOCON file format - 
+Human-Optimized Config Object Notation which is based on the JSON format. 
+JSON is de facto now standard in storing data also for configuration purposes.
+That’s why we decided to use this format.
+
+We developed a SBT plugin which loads and parses configuration file, generates 
+proper aspect, the aspect’s configuration file and integrates generated 
+sources into the user’s application.
+
+For increasing the usability, we allowed user to just specify packages which 
+contains the actors that should be traced (but explicit configuration 
+specifying only some classes from the packages is also possible). This was 
+possible due to the AspectJ pointcut definition that can take `*` as the class 
+name which translates to “any class”. Therefore, we crossed a big bridge in 
+bringing the usability to our library.
+
+Another part of this milestone was to tweak and optimize aspect’s template so 
+that the message’s contents were also persisted. Another thing that our client 
+wanted was to change the default database engine to SQLite as it does not 
+require any database engine installed on user’s system SQLite itself can be 
+run directly on the JVM as part of our library.
+
+#### Milestone summary
+
+This milestone resulted in delivering a SBT plugin which automatizes the aspect
+generation process enabling much greater usability and making our library much 
+easier to use for the user.
+
+There were some tweaks and optimization in the aspect’s template that allowed 
+us to have the message’s contents persisted in our trace.
+
+We also changed the database engine to SQLite based on the client’s suggestion 
+and requirements.
+
+### 5.1.6 Documentation and tutorial with working library and example
+
+At the beginning of the developing process to deliver this milestone it 
+occurred that there are some small bugs in the code. So the first step was to 
+resolve them. We fixed them and presented the library to our client.
+
+At this point the library was fully functional. Our client confirmed that it 
+is doing what it should be doing. What he wanted was an example that describes 
+the integration of our Project into some existing actor system.
+
+Although he knew how the library worked because of the regular meetings, our 
+client wanted to have this tutorial written to a user which does not 
+understand how the library worked.
+
+Therefore, we created a tutorial showing a potential new user how to integrate 
+our library into an existing actor system. We adopted one of our examples that 
+we created before as the example actor system used in this short instruction.
+
+We showed user how to add our library step by step to the project. We also 
+informed him more or less what each step does, so he could understand (at 
+least at some general, abstract way) how the library work.
+
+Our client suggested also creating a repository or branch that would allow 
+client to see the fully integrated library. We decided to create a branch on 
+the example’s repository that showed exactly that - what user can expect as a result after working his way through the tutorial.
+
+The last step of this milestone was to write most of the missing documentation 
+of our library. We created Development Process Documentation (this document), 
+Technical Documentation and User Documentation. These documents were formally 
+required as a part of our Project. But, regardless of formal requirements, it 
+was necessary to document our library so potential users could use it in their 
+projects and, if they desire, change its code to adapt to their needs which 
+weren’t included or thought of in our Project’s vision.
+
+#### Milestone summary
+
+A fully functional example of the library’s usage was created during this 
+iteration. A tutorial has been written that shows how to integrate the library 
+into an existing actor system. What is more, some bugs were corrected. This 
+was also the iteration that important documentation was written so the users 
+can learn about the library itself.
+
+# 6 End product evaluation
+
+The development resulted in a fully functional Scala library that allows users 
+to trace their Akka applications. The product allows to collect and visualize 
+information about the messages passed between actors with full contents of the 
+messages, its sender and its receiver.
+
+The following requirements were made about the library:
+
+* The library should be user-friendly - the amount of required actions that 
+user needs to take to include the library to his project has to be small.
+* The library should collect information about messages passed between actors.
+* The library should be easily extendable.
+
+The above requirements have been fully met by our product.
+
+The following requirements were not met:
+
+* The library should allow users to see the full stack trace if an exception 
+is thrown in actor.
+* The library’s configuration can be changed when the actor system is running 
+and the new contents will be taken into account in the tracing.
+* The tool should provide an integration feature with existing visualization 
+tools.
+
+The requirements above were not met due to the following reasons:
+
+* Not enough time to make them work properly in any actor system.
+* Not enough understanding of the inner structure and the data APIs of the 
+external visualization tools.
+* Complexity of the requirements.
+
+During the development process several proofs of concepts were created as well 
+as working prototype of the product. The prototypes and proofs of concepts 
+were then evaluated. This allowed us to control the product’s development 
+process and the next steps that were needed to made.
+
+# 7 Future works
+
+The library provides basic information about messages passed by the actors in 
+an actor system. However, tracing is a more general concept than collecting 
+information about how the system is working. Below are some of the ideas about 
+the future works that can be done to produce an even better library:
+
+* **adding additional information in the message’s wrapper** - right now there 
+is only message’s id which is needed to persist the message; you can insert 
+some other information e.g. execution time or some statistics data,
+* **sampling of the messages being stored in database** - usually there are 
+lots of messages passed between actors there should be some ways to reduce 
+saved information because there are a lot of traces that are practically 
+identical and do not provide any new information to the user,
+* **better visualization** - there should be some interactive features that 
+allow user to filter the trace to show the information that is interesting to 
+him,
+* **database queries enabling to find specific traces or information about 
+them** - the library allows only the persistence of the traces. There should 
+be some tools to analyse the traces to extract some information or to search 
+by some criteria to find the specified traces.
+
+# References
+
+1. Richard Doyle, “Using Akka and Scala to Render a Mandelbrot Set” blog post.
+Available at: 
+http://blog.scottlogic.com/2014/08/15/usingakkaandscalatorenderamandelbrotset.html
+[Online; accessed 02.01.2016]
+2. Carl Hewitt, Peter Bishop, Richard Steiger, “A Universal Modular Actor 
+Formalism for Artificial Intelligence”, 1973. Available at:
+http://worrydream.com/refs/HewittActorModel.pdf [Online; accessed 03.01.2016]
+3. S.S. Kadam, Presentation about “Message-Passing Programming Paradigm”.
+Available at: http://www.iacs.res.in/MPI_Collective_Communications.pdf
+[Online; accessed 02.01.2016]
+4. Florian Hopf, “Getting rid of synchronized: Using Akka from Java” blog post.
+Available at: http://blog.florianhopf.de/2012/08/gettingridofsynchronizedusingakka.html
+[Online; accessed 02.01.2016]
+5. Munish K. Gupta, “Dispatcher and Routers”, Packt Publishing online article. 
+Available at: https://www.packtpub.com/books/content/dispatchersandrouters
+[Online; accessed 02.01.2016]
+6. Iulian Dragos, “Rethinking the debugger” presentation about asynchronous
+debuggers from ScalaCamp 2014. Available at:
+http://scalacamp.pl/data/asyncdebuggerslides [Online; accessed 31.12.2015]
+7. Scala IDE documentation, “Asynchronous Debugger” section. Available at:
+http://scalaide.org/docs/currentuserdoc/features/asyncdebugger/
+[Online; accessed 02.01.2016]
+8. Zipkin project website. Available at: http://zipkin.io 
+[Online; accessed 31.12.2015]
