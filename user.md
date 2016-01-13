@@ -3,6 +3,9 @@ User documentation
 
 # 1 Code repositories
 
+To download PDF version of this document, please
+[click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/TechnicalDocumentation.pdf).
+
 Source code is available online on GitHub service at the following address: https://github.com/akka-tracing-tool. At the time of creating this part of the documentation  Akka-Tracing-Tool consists of 6 repositories:
 
 * akka-tracing-core - the core part of the Akka Tracing library,
@@ -44,6 +47,7 @@ $ git clone https://github.com/akka-tracing-tool/akka-tracing-tutorial
 
 Downloaded project contains already instrumented, using our tracing tool, Akka application. Actors are passing messages in a way that is shown in Figure 1:
 ![Figure 1](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig1.png "Figure 1")
+
 **Figure 1.** Messages flow in Akka application
 
 Project structure is following:
@@ -211,9 +215,8 @@ $ sqliteman akka-tracing-tutorial.sqlite
 ```
 
 In Figure 2. you can see a screenshot from that program. Database contains two tables - *messages* and *relation* - filled with information collected from your Akka application.
+
 ![Figure 2](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig2.png "Figure 2")
-
-
 **Figure 2.** Screenshot from sqliteman
 
 ## 3.2 Changing database driver
@@ -264,6 +267,7 @@ akka_tracing {
 Now it’s ready! You can run application and check results. In Figure 3. we’re showing output from *pgadmin3*.
 
 ![Figure 3](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig3.png "Figure 3")
+
 **Figure 3.** Screenshot from *pgadmin3*
 
 ## 3.3 Using visualization tool
@@ -318,6 +322,7 @@ $ sbt run
 Under the URL `localhost:9000` you can see visualization of collected traces, similar to shown in Figure 4.
 
 ![Figure 4](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig4.png "Figure 4")
+
 **Figure 4.** Screenshot from web browser showing *Akka Tracing Visualization Tool*
 
 # 4 Configuration
