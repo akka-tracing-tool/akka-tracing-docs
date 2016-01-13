@@ -336,3 +336,88 @@ In Figure 5 we can see the ERD diagram of the database.
 ![Figure 5](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig5.png "Figure 5")
 
 **Figure 5.** The ERD diagram of the used database
+
+## 2.3 SBT Plugin
+
+The SBT plugin is an essential part of the library. It provides the following functionality in our product:
+
+* parsing configuration file to get information about actors that user want to trace with our library,
+* generating an AspectJ aspect using the collected information,
+* generating AspectJ weaving configuration,
+* adding library core as user’s project dependency with the necessary dependency resolver,
+* adding AspectJ dependencies and weaving options to the user’s project,
+* providing database utility tools which enables user to create needed tables in the database and clean database of collected data.
+
+The functionalities mentioned above are essential parts of our solution as they actually cause that the usage of the library is easy and intuitive.
+
+The plugin itself is divided in four parts:
+
+* **the “main” object** - it is something like the main function in C/C++ programs. It actually connects other parts together and provides the settings being added to the user’s build definition file,
+* **the configuration reader and parser** - gets information about packages and actors in these packages that user wants to trace,
+* **aspects template and generator** - based on the information got from the configuration generates aspects which are responsible for instrumenting the code of our library which persists the messages in the database,
+* **database utilities** - utility tasks for creating necessary tables and cleaning data stored in the database.
+
+In Figure 6 we can see the class diagram in the plugin.
+
+![Figure 6](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig6.png "Figure 6")
+
+**Figure 6.** Class diagram in plugin
+
+### 2.3.1 Plugin “main” object
+
+The plugin main object, `AkkaTracingPlugin`, provides settings that will be added to user’s build definition file. It is responsible for the following functionality:
+
+* providing **aspect generation** by providing SBT’s source and resource generators (see Section 2.3.3 for more details),
+* providing **AspectJ dependencies** with **AspectJ weaving JVM option** needed to run the generated aspects,
+* providing **database utilities tasks**: `initDatabase` and `cleanDatabase`. The initialization task is also declared as dependency in compilation to prevent SQL errors during running of the actor system. The collector sometimes does not have enough time to run these commands before insertions to the database and it caused loss of information - that’s why we moved initializing to be part of the compilation process (see Section 2.3.4 for more details).
+
+To provide the functionality mentioned above, the main object uses also configuration parser to read the user’s configuration. For more details about configuration parser, see Section 2.3.2.
+
+The plugin uses standard SBT features - it defines proper settings and tasks and overrides `projectSettings` variable to include them into user’s build definition file.
+
+Due to the presence of source and resource generators in the plugin, it was necessary to add `JvmPlugin` dependency because `JvmPlugin` provides and overrides the source and resource directories (for more information about this see StackOverflow thread [15]).
+
+### 2.3.2 The configuration reader and parser
+
+The configuration reader and parser is encapsulated in the `ConfigParser` class. It provides methods and fields for getting the following values:
+
+* packages containing actors to trace,
+* actors that user wants to trace in each package (supplied explicitly by the user or, if not specified, it is assumed that any found actor with mixed trait TracedActor will be traced by the library),
+* hash of the configuration file (calculated with SHA-512 algorithm),
+* database connection configuration used by database utilities.
+
+The class is used in all other parts in plugin. One of the most important thing is the hash calculation. It prevents the plugin to generate the aspect and weaving config if they were already generated using the same configuration. It’s useful because it saves time during compilation.
+
+Due to the chosen configuration format, the parser and configuration reader used was TypeSafe’s Config library. The library, while providing really great interface, was lacking Scala’s syntactic sugar in error handling. If an error occured, it was reported by throwing an exception. While it’s common in Java code, in Scala we would like to handle errors in different ways. That’s why the implicit class `RichConfig` was written. It provides an additional method which enables us to provide the default value while trying to get list of strings.
+
+### 2.3.3 Aspects generator
+
+The main functionality of the plugin is generating an AspectJ aspect which instruments the library code.
+
+The generation consists of 2 parts: generating the aspect itself and the weaving configuration file.
+
+The class that provides the generation functionality is named `FilesGenerator`. It needs the `ConfigParser` instance to provide the necessary configuration - list of traced actors and configuration hash.
+
+The class takes the aspect template from resources and replaces the needed values with the ones read from configuration. This is possible due to the simple construction of the aspect itself.
+
+The aspect is saved in the managed sources directory which allows user to not have the additional source in his source directory and SBT to compile the file anyway. This solution increases the user-friendly aspect of our library. Similarly, the weaving configuration is saved to the managed resources directory.
+
+#### Aspect
+
+The aspect provides following features:
+
+* The `aroundReceivePointcut` which points to the `TracedActor’s receive` method. It is catching any invocation of this method which allows us to instrument our code.
+* The `aspectAroundReceive` advice which unwraps the message from our message wrapper and passes it to the receive method in actors and sends the messages to the database collector which persists it in the database. If the message is not wrapped in our wrapper, it would be passed to the actor without saving it to database.
+* The `withinUnreliable` pointcut which points to the `tell (!)` method in actors. It is catching sending the messages between actors.
+* The `aspectA` advice which wraps the message being send and also connect the messages using the `correlationId` from the `TracedActor` trait into traces. The id itself is a random UUID.
+
+The aspect also starts a new remote actor system which contains the collector actor from the core library.
+
+### 2.3.4 Database utilities
+
+The plugin provides also utility tasks to manage the database used in tracing. The responsible class, `DatabaseTasks`, has two methods:
+
+* **initDatabase** which creates two tables: messages and relation that are needed by the library to persist the information into the database,
+* **cleanDatabase** which cleans the tables mentioned above.
+
+The class uses Slick library to run the proper SQL commands and database configuration read from the configuration file to provide the proper database connection.
