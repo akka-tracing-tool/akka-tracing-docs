@@ -467,3 +467,98 @@ Below we present a list of tests in our Project:
 Does implicit class `RichConfig` work properly? - Simple check that makes sure implicit class works as expected.
 * Does Collector put proper data into database after receiving messages? - The test that checks amount of rows after receiving specified messages.
 * Simple integration test - a script that run application and check whether output: database and generated files are correct.
+
+
+# 4 Information for developers
+## 4.1 Prerequisites
+
+There are several things that needs to be installed before you can start developing and contributing to Akka Tracing Tool.
+
+First of all, you need to have Java 8 JDK installed on your PC. The preferred implementation is the Oracle one, but it should be fine on others (though this was not tested). Java 8 JDK (Oracle implementation) can be downloaded from the Oracle’s website [17].
+
+Also, the Scala language should be installed in your system. We used two versions: 2.11.7 in most of our library, but the SBT plugin required version 2.10.5. Because of the plugin’s dependency on the core, it needed to be cross-compiled in two versions (2.10.5 and 2.11.7). Scala can be downloaded from its official website [18].
+
+The next important tool is git version control system. It is used in any part of the Project. Git can be downloaded from its official website [19].
+
+The last needed tool is the SBT building tool. It’s used to compile all the library’s code as well as run unit tests. We used its version 0.13.9. SBT tool can be downloaded from its official website [20].
+
+Any needed libraries that *Akka Tracing Tool* uses will be downloaded by SBT during the compilation or the project’s import to your favourite IDE.
+
+## 4.2 Importing project into IntelliJ IDEA
+
+After installing all of the tools mentioned above, you can import the project you want to edit to your favourite IDE. Below we present the description of the process of importing the library’s core to IntelliJ IDEA.
+
+Before we start, you have to make sure that Scala plugin in IntelliJ IDEA is installed. It’s available in public JetBrains repository and you can download it inside IDE. In order to do that, please open in settings “Plugin” section. Then, please press “Browse repositories…”. You should see a window like in Figure 10. As a final step, press the button to start installation of the plugin.
+
+ ![Figure 10](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig10.png "Figure 10")
+
+**Figure 10.** “Browse Repositories” window in plugins settings
+
+After that we can open the SBT project.
+
+Right after IntelliJ IDEA is initialized, you should see a window similar to one in Figure 11:
+
+![Figure 11](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig11.png "Figure 11")
+
+**Figure 11.** Welcome screen in IntelliJ IDEA
+
+In the window visible above you should click “Open” link. After that, new window - shown in Figure 12 - should pop up. You have to find project cloned from GitHub in your filesystem, mark it and press the “OK” button.
+![Figure 12](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig12.png "Figure 12")
+
+**Figure 12.** Pop-up “Open file or project” window
+
+If you have done all of the previous steps, you should proceed to the new window, shown in Figure 13. Here you can modify different settings. The most important are SBT project and project SDK. Also, it’s convenient to turn on “auto-import” capability.
+
+![Figure 13](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig13.png "Figure 13")
+
+**Figure 13.** “Import project from SBT” window
+
+When you press “OK” button, you should see small pop-up window that informs you about progress building a IntelliJ IDEA project. It’s visible in Figure 14 below.
+
+![Figure 14](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig14.png "Figure 14")
+
+**Figure 14.** Process of building IntelliJ IDEA project
+
+When the previous step is done, the project is correctly imported into IntelliJ IDEA. In Figure 15 there is a screenshot from the IDE after importing project. Now, you can start developing Akka Tracing Tool.
+
+![Figure 15](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig15.png "Figure 15")
+
+**Figure 15.** Screenshot from opened “akka-tracing-core” SBT project in IntelliJ IDEA
+
+## 4.3 Contributing to Akka Tracing Tool
+
+If you want to send us some bug fix or contribute to the library’s development, please fork the necessary repository on GitHub and create a pull request. The process is thoroughly described in GitHub’s tutorial [21].
+
+# References
+1. Akka documentation, “Actors” section. Available at: http://doc.akka.io/docs/akka/2.3.9/scala/actors.html#actors-scala
+[Online; accessed 31.12.2015]
+2. Akka documentation, “Actors and shared mutable state” section. Available at: http://doc.akka.io/docs/akka/snapshot/general/jmm.html#Actors_and_shared_mutable_state [Online; accessed 31.12.2015]
+3. Alvin Alexander, “An Akka actors 'ask' example - ask, future, await, timeout, duration, and all that” blog post. Available at: http://alvinalexander.com/scala/scala-akka-actors-ask-examples-future-await-timeout-result [Online; accessed 31.12.2015]
+4. J. Waldo, G. Wyant, A. Wollrath, S. Kendall, “A note on Distributed computing”, November 1994. Available at: http://doc.akka.io/docs/misc/smli_tr-94-29.pdf
+[Online; accessed 31.12.2015]
+5. Akka documentation, “Location transparency” section. Available at: http://doc.akka.io/docs/akka/snapshot/general/remoting.html#remoting
+[Online; accessed 31.12.2015]
+6. Akka documentation. Available at: http://akka.io/docs [Online; accessed 31.12.2015]
+7. Wikipedia article “Aspect-oriented programming”. Available at: https://en.wikipedia.org/wiki/Aspect-oriented_programming
+[Online; accessed 31.12.2015]
+8. Wikipedia article “AspectJ”. Available at: https://en.wikipedia.org/wiki/AspectJ
+[Online; accessed 31.12.2015]
+9. Denis Zhdanov, “Weaving with AspectJ” blog post. Available at: http://denis-zhdanov.blogspot.com/2009/08/weaving-with-aspectj.html
+[Online; accessed 31.12.2015]
+10. SBT documentation, “Features of SBT” section. Available at: http://www.scala-sbt.org/0.13/docs/index.html#Features+of+sbt
+[Online; accessed 31.12.2015]
+11. SBT documentation, “.sbt build definition” section. Available at: http://www.scala-sbt.org/0.13/tutorial/Basic-Def.html [Online; accessed 31.12.2015]
+12. SBT documentation. Available at: http://www.scala-sbt.org/documentation.html [Online; accessed 31.12.2015]
+13. Slick documentation, “Supported databases” section. Available at: http://slick.typesafe.com/doc/3.1.1/supported-databases.html
+[Online; accessed 31.12.2015]
+14. Slick documentation. Available at: http://slick.typesafe.com/doc/3.1.1/
+[Online; accessed 31.12.2015]
+15. StackOverflow thread: “How to generate sources in an sbt plugin?”. Available at: http://stackoverflow.com/questions/24724406/how-to-generate-sources-in-an-sbt-
+plugin [Online; accessed 31.12.2015]
+16. Play documentation. Available at: https://playframework.com/documentation/2.4.x/Home [Online; accessed 31.12.2015]
+17. Oracle website, “Java SE Development Kit 8 Downloads” section. Available at: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html [Online; accessed 03.01.2016]
+18. The Scala Programming Language website, “Downloads” section. Available at: http://www.scala-lang.org/download/all.html [Online; accessed 03.01.2016]
+19. Git website, “Downloads” section. Available at: https://git-scm.com/downloads
+[Online; accessed 03.01.2016]
+20. SBT website, “Downloads” section. Available at: http://www.scala-sbt.org/download.html [Online; accessed 03.01.2016]
+21. GitHub Help website, “Fork a repo” Bootcamp. Available at: https://help.github.com/articles/fork-a-repo [Online; accessed 03.01.2016]
