@@ -368,8 +368,8 @@ needed documents much faster than it would be possible with e­mail­driven
 communication with attached files. 
  
 The other tool that we used was GitHub. It is a service that allows you to 
-store and version the code. We used it to collaborate during the coding phase 
-- every part of code that we created was stored on some repository on GitHub. 
+store and version the code. We used it to collaborate during the coding phase - 
+every part of code that we created was stored on some repository on GitHub. 
 Every piece of code was also reviewed by other team member during the “Code 
 review” with the usage of GitHub’s pull requests. During this process the 
 other team member (not the author of the code) read the code to try and spot 
