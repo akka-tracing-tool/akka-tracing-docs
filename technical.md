@@ -2,7 +2,7 @@ Technical documentation
 =======================
 
 To download PDF version of this document, please
-[click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/DevelopmentProcessDocumentation.pdf).
+[click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/TechnicalDocumentation.pdf).
 
 # 1 Project domain
 
