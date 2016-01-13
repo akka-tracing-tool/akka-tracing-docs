@@ -227,3 +227,39 @@ public void beforeSetPointcut() {
 Instrumentation using aspect-oriented programming can be implemented in multiple ways, e.g. source-weaving, bytecode-weaving or runtime-weaving. It depends on the user requirements and accessibility to source code. Source-weaving is good way to provide best performance but it’s necessary to have access to code you want to instrument. Bytecode-weaving allows to instrument compiled class. Runtime-weaving is very similar to the previous one - it enables to instrument class during loading into JVM using service API provided in *java.lang.instrument* package. In our product we’re using this type of weaving and we have to provide additional library which is responsible for weaving our code into existing actor’s code.
 
 For more information about AspectJ weaving types, please see Denis Zhdanov’s blog post [9].
+
+## 1.3 SBT
+
+SBT (Simple Build Tool) is a project building tool that is commonly used to build Scala projects. It’s written in Scala language and provides many great features, such as:
+
+* incremental compilation - the tool scans the project sources and detects which files have been changed and recompiles only them - the compilation time is therefore greatly reduced,
+* small configuration needed for simple projects,
+* dependency management - manages the project’s dependencies using Apache Ivy 2,
+* packages applications into jar/war files,
+* provides plugin architecture which enables users to write plugins which enable functionality that the tool itself do not have,
+* provides ways to enable automatic code generation.
+
+The build configuration files are written in Scala language. This is a great feature because it allows user to write some code which will be executed during tool setup or some build task.
+
+More information about the SBT features can be found in SBT documentation [10].
+
+### 1.3.1 Tasks
+
+The SBT Documentation [11] defines tasks as values “that have to be recomputed each time, potentially with side effects”. Tasks are used, for example, to compile the project, to run unit tests, to run main class, etc.
+
+Tasks are mostly used for providing some additional functionality - for example generating documentation or generating code.
+
+### 1.3.2 Plugins
+
+The plugins provide a way to define custom tasks that can be reused by other SBT users. This approach enables the community to extend the SBT functionality and to provide user-friendly way for some of the needed build steps required when using using some library or framework.
+
+For example, Play framework (MVC web application framework) uses a plugin to provide routes generation during the compilation. This enables users to write a simple routes definition file and not bother to create lots of classes with mostly boilerplate code.
+
+In Figure 2 we can see one of the usages of plugins - requiring custom task to be done before compilation. The custom task is shared to SBT users via plugins.
+
+![Figure 2](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig2.png "Figure 2")
+
+**Figure 2.** Usage of plugin to provide custom task to the SBT community
+
+
+More information about SBT can be found in official SBT documentation [12].
