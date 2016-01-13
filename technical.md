@@ -2,7 +2,9 @@ Technical documentation
 =======================
 
 # 1 Project domain
+
 ## 1.1 The actor model in Akka
+
 ### 1.1.1 How does an actor look like?
 
 Actors in Akka toolkit are classes which extend *Actor* trait and implement the *receive* method. The *receive* method should define a series of case statements, that defines which messages actor can handle, using pattern matching available in Scala language. Every case should be provided with the implementation of behaviour when the message is received. Below is an example of simple actor:
@@ -80,8 +82,8 @@ val message = Message("Bob")
 
 Sending messages in Akka toolkit is possible through one of the following methods:
 
-! - ‘fire-and-forget’, send a message asynchronously and return immediately. Also known as tell.
-? - sends a message asynchronously and returns a *Future*. Also known as ask.
+* ! - ‘fire-and-forget’, send a message asynchronously and return immediately. Also known as tell.
+* ? - sends a message asynchronously and returns a *Future*. Also known as ask.
 
 #### Tell - ‘fire-and-forget’
 
@@ -182,7 +184,7 @@ Every method which name starts with *‘set’* and return type is void can be w
 
 ```
 before (): setPointcut(): {
-Logger.debug("before 'set' method");
+  Logger.debug("before 'set' method");
 }
 ```
 
@@ -204,7 +206,7 @@ can be written as:
 @Pointcut("execution(void *.set*(..))")
 void setPointcut() {}
 ```
-
+
 And the advice:
 
 ```
@@ -264,6 +266,7 @@ In Figure 2 we can see one of the usages of plugins - requiring custom task to b
 More information about SBT can be found in official SBT documentation [12].
 
 # 2 Project structure
+
 ## 2.1 Library architecture
 
 We split the library into three main parts to help us maintain the Project. In Figure 3 we can see the overall product structure.
@@ -282,8 +285,6 @@ The main functionality that the library’s core provides are:
 * `TracedActor` trait which must be mixed into the actors which the user wants to trace.
 * `MessageWrapper` class that wraps the message along with its UUID.
 * Database access classes which provide the proper methods and database mappings used by different parts of the library.
-
-
 
 The library’s core is split into 3 main parts:
 
@@ -469,8 +470,8 @@ Does implicit class `RichConfig` work properly? - Simple check that makes sure i
 * Does Collector put proper data into database after receiving messages? - The test that checks amount of rows after receiving specified messages.
 * Simple integration test - a script that run application and check whether output: database and generated files are correct.
 
-
 # 4 Information for developers
+
 ## 4.1 Prerequisites
 
 There are several things that needs to be installed before you can start developing and contributing to Akka Tracing Tool.
