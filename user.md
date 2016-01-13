@@ -1,10 +1,10 @@
 User documentation
 ==================
 
-# 1 Code repositories
-
 To download PDF version of this document, please
 [click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/TechnicalDocumentation.pdf).
+
+# 1 Code repositories
 
 Source code is available online on GitHub service at the following address: https://github.com/akka-tracing-tool. At the time of creating this part of the documentation  Akka-Tracing-Tool consists of 6 repositories:
 
