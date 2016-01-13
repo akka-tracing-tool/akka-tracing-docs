@@ -13,7 +13,7 @@ Source code is available online on GitHub service at the following address: http
 * akka-tracing-sbt - SBT plugin for Akka Tracing Tool,
 * akka-tracing-examples - examples of usage of the Akka Tracing library,
 * akka-tracing-tutorial - simple project that explains how to use Akka Tracing Tool,
-akka-tracing-visualization - visualization tool for visualizing the traces.
+* akka-tracing-visualization - visualization tool for visualizing the traces.
 
 Main functionality, i.e. tracing is provided by the **core part** and the **SBT plugin**. Remaining repositories provide showcase of usage and extensions.
 
@@ -46,6 +46,7 @@ $ git clone https://github.com/akka-tracing-tool/akka-tracing-tutorial
 ```
 
 Downloaded project contains already instrumented, using our tracing tool, Akka application. Actors are passing messages in a way that is shown in Figure 1:
+
 ![Figure 1](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/user/fig1.png "Figure 1")
 
 **Figure 1.** Messages flow in Akka application
