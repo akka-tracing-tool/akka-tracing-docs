@@ -1,6 +1,9 @@
 Technical documentation
 =======================
 
+To download PDF version of this document, please
+[click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/DevelopmentProcessDocumentation.pdf).
+
 # 1 Project domain
 
 ## 1.1 The actor model in Akka
@@ -82,8 +85,8 @@ val message = Message("Bob")
 
 Sending messages in Akka toolkit is possible through one of the following methods:
 
-* ! - ‘fire-and-forget’, send a message asynchronously and return immediately. Also known as tell.
-* ? - sends a message asynchronously and returns a *Future*. Also known as ask.
+* `!` - ‘fire-and-forget’, send a message asynchronously and return immediately. Also known as tell.
+* `?` - sends a message asynchronously and returns a *Future*. Also known as ask.
 
 #### Tell - ‘fire-and-forget’
 
