@@ -270,7 +270,7 @@ We split the library into three main parts to help us maintain the Project. In F
 
 ![Figure 3](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig3.png "Figure 3")
 
-Figure 3. The overall product structure (the blue elements are parts of the Project)
+**Figure 3.** The overall product structure (the blue elements are parts of the Project)
 
 ## 2.2 Library core
 
@@ -294,7 +294,8 @@ The library’s core is split into 3 main parts:
 In Figure 4 we can see the class diagram of the library core.
 
 ![Figure 4](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig4.png "Figure 4")
-Figure 4. Class diagram in core
+
+**Figure 4.** Class diagram in core
 
 ### 2.2.1 Tracing tools
 
