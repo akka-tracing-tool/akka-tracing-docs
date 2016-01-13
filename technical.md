@@ -449,3 +449,21 @@ In Figure 7 we can see the overall tool structure. In Figure 8 we can see the vi
 ![Figure 9](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig9.png "Figure 9")
 
 **Figure 9.** More sophisticated scenario visualized using our visualization tool
+
+# 3 Tests
+
+In the initial phase of this Project, we were mainly focused on creating prototypes and fast delivering it to client to asses result. It caused that early versions was lacking in tests and automatic verification of output. This was also connected with product requirements which weren’t very strict and precisely determinate at the beginning of our work: we had to recognize the best solution for client needs. Hence, introducing test-driven development into our workflow was nearly impossible and covering the whole codebase with automated tests was very hard because of constant changes.
+
+Although, we saw benefits of having tests in our Project: an assurance that everything works, e.g. we didn’t introduced any bugs that cause a regression, and client can check consistent of created software with his requirements. In the later phase we decided to introduce CI system, Travis, which after every commit tried to compile whole project and reported it on code repository pages. It increased reliability of our process and every time we knew that we were developing further working version of our product.
+
+As mentioned in Development Process Documentation in Section 4, some of checks, connected mostly with non-functional requirements, were impossible to automate. We chose to focus on very simple tests, e.g. one message passed between two actors. We didn’t check sophisticated examples but straightforward scenarios because it was achievable in our case. We also found “smoke tests” very useful: it allowed us to check whether updated version of dependencies didn’t introduce regression and make sure that everything work properly.
+
+Below we present a list of tests in our Project:
+
+* Do `initDatabase/cleanDatabase` methods in DatabaseTasks work? - The test checks whether database is properly initialized and cleaned after invocation of these methods.
+* Is configuration properly parsed? - Simple check whether correct values are returned from `ConfigParser` class.
+* Does `FilesGenerator` produce correct output file? - The test that makes sure whether file content is correct.
+* Does `FilesGenerator` generate aspect when necessary? - The tests that check whether new file is generated when configuration changed.
+Does implicit class `RichConfig` work properly? - Simple check that makes sure implicit class works as expected.
+* Does Collector put proper data into database after receiving messages? - The test that checks amount of rows after receiving specified messages.
+* Simple integration test - a script that run application and check whether output: database and generated files are correct.
