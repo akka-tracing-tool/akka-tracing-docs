@@ -421,3 +421,31 @@ The plugin provides also utility tasks to manage the database used in tracing. T
 * **cleanDatabase** which cleans the tables mentioned above.
 
 The class uses Slick library to run the proper SQL commands and database configuration read from the configuration file to provide the proper database connection.
+
+## 2.4 Visualization tool
+
+The purpose of the visualization tool was to confirm that the library is working properly. The tool is more like a by-product than part of our Project. The main objective was to provide visual confirmation that the information saved to the database is correct and that proper traces can be retrieved from it.
+
+The tool is a Play! 2.4 application. The tool itself is very simple and provides the graphical visualization of the collected traces by displaying them as a directed graph. It does not have any special features like filtering traces due to being a side product.
+
+For more information about Play! framework please see the official Play! framework documentation [16].
+
+The “backend” has very simple task - it reads information from the database and passes it to the “frontend” graph converter.
+
+The graph converter was written in Javascript. Our tool uses sigma.js library to render the graph in the user interface. Due to incompatible graph representations, the graph converter needs to perform a DFS search in the data got from the backend to get the graph representation needed by sigma.js.
+
+The user interface was created using the Bootstrap library. It allowed us to focus on the functionality we wanted to deliver and not about styling the application.
+
+In Figure 7 we can see the overall tool structure. In Figure 8 we can see the visualization of the very simple message passing scenario. In Figure 9 we can see the visualization of a more sophisticated scenario.
+
+![Figure 7](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig7.png "Figure 7")
+
+**Figure 7.** Visualization tool structure
+
+![Figure 8](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig8.png "Figure 8")
+
+**Figure 8.** Simple scenario visualization using our visualization tool
+
+![Figure 9](https://raw.githubusercontent.com/akka-tracing-tool/akka-tracing-docs/master/images/tech/fig9.png "Figure 9")
+
+**Figure 9.** More sophisticated scenario visualized using our visualization tool
