@@ -2,7 +2,7 @@ User documentation
 ==================
 
 To download PDF version of this document, please
-[click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/TechnicalDocumentation.pdf).
+[click here](https://github.com/akka-tracing-tool/akka-tracing-docs/raw/master/pdfs/UserDocumentation.pdf).
 
 # 1 Code repositories
 
